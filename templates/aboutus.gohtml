@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<link href="../assets/style.css" rel="stylesheet">
+
+<head>
+    <meta charset="utf-8">
+    <title>Groupie Tracker</title>
+    
+    <script type="text/javascript" src="../assets/style.js"></script>
+    <link rel="icon" type="image/x-icon" href="../images/Empire_color.jpg">
+</head>
+<body>
+
+<nav>
+    <div class="nav">
+
+        <div class="logo">
+            <a id="logo" href="/">GROUPIE TRACKER</a>
+        </div>
+
+        <div class="searchBar">
+            <form method="get" action="/">
+                <input class="search" type="text" placeholder="Chercher..." id="data" name="data" list="data-list" autocomplete="off">
+                <datalist id="data-list">
+                    {{with .Search}}
+                        {{range .ArtistBandName}}
+                            <option value="{{.}} - Artist/Band"></option>
+                        {{end}}
+                        {{range .Members}}
+                            <option value="{{.}} - Member"></option>
+                        {{end}}
+                        {{range .Location}}
+                            <option value="{{.}} - Location"></option>
+                        {{end}}
+                        {{range .CreationDate}}
+                            <option value="{{.}} - Creation Date"></option>
+                        {{end}}
+                        {{range .FirstAlbumDate}}
+                            <option value="{{.}} - First Album Date"></option>
+                        {{end}}
+                    {{end}}
+                </datalist>
+            </form>
+        </div>
+
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="/aboutUs">About Us</a>
+        </div>
+    </div>
+</nav>
+
+<div class="aboutUs">
+    <h1>About</h1>
+    <p>Groupie Tracker is a project that will allow the user to navigate between different band/artist, to know some information about them. This project
+        was realised as a school project using a given <a href="https://groupietrackers.herokuapp.com/api">Rest Api</a>.</p>
+
+    <h1>Team</h1>
+    <p>This project was realised by 2 students: Rafael Mestre and Syrhian Rosset, both learning at Ynov Toulouse. Click on the following cards to get to our gitea profiles</p>
+
+    <div id="conteneur">
+        <div onclick="window.location.href = 'https://git.ytrack.learn.ynov.com/RMESTRE';" class="box">
+            <div class="scroll">
+                <h2 id="1" onmouseover="mOver('1')" onmouseout="mOut('1')">Rafael Mestre</h2>
+                <div class="img"><img src='https://git.ytrack.learn.ynov.com/avatars/35a103ae0946c03db9280ed3f3a0904d?size=580'></div>
+            </div>
+        </div>
+        <div onclick="window.location.href = 'https://git.ytrack.learn.ynov.com/SROSSET';" class="box">
+            <div class="scroll">
+                <h2 id="2" onmouseover="mOver('2')" onmouseout="mOut('2')">Syrhian Rosset</h2>
+                <div class="img"><img src="https://git.ytrack.learn.ynov.com/avatars/ec61f8907961871c3c370d0222898678?size=580"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

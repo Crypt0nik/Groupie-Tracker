@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script type="text/javascript" src="../assets/style.js"></script>
+    <script type="text/javascript" src="../assets/script.js"></script>
+    <link rel="icon" type="image/x-icon" href="../images/Empire_color.jpg">
+    
+</head>
+<body>
+<nav>
+    <section>
+    <div class="nav">
+
+        <div class="logo">
+            <a id="logo" href="/" style="text-decoration:none">groupietrack®</a>
+        </div>
+        <img src="../images/cassette 3D.png" alt="" class="cassette">
+        <div class="logo2">ARTHURCHESSÉ</div>
+        <div class="logo3">アーサー・シェセ</div>
+        <div class="logo4">TRACKER</div>
+    </section>
+    <section>
+        <div class="search">
+            <form method="get" action="/">
+                <input type="search" placeholder="Bienvenue sur GroupieTracker®" id="data" name="data" list="data-list" autocomplete="on">
+                <datalist id="data-list">
+                                {{with .Search}}
+                                    {{range .ArtistBandName}}
+                                        <option value="{{.}} - Artist/Band"></option>
+                                    {{end}}
+                                    {{range .Members}}
+                                        <option value="{{.}} - Member"></option>
+                                    {{end}}
+                                    {{range .CreationDate}}
+                                        <option value="{{.}} - Creation Date"></option>
+                                    {{end}}
+                                {{end}}
+                 </datalist>
+             </form>
+        </div> 
+    
+        <!-- <div class="menu">
+            <a href="/">Accueil</a>
+            <a href="/aboutUs">A Propos</a>
+        </div> -->
+</nav>
+    <div class="filter">
+        <button id="showFilters">Afficher</button>
+
+        <div class="filterBar" style="display: none;">
+            <form method="get">
+                <label for="CreationDate">Date de création : </label>
+                <input type="range" id="CreationDate" name="CreationDate" class="value" min="{{.Search.MinCreationDate}}" max="{{.Search.MaxCreationDate}}" value="{{.Search.MinCreationDate}}">
+                <span id="value"></span> - {{.Search.MaxCreationDate}}
+                <script>
+                    var value = document.getElementById("CreationDate")
+                    var output = document.getElementById("value")
+                    output.innerHTML = value.value;
+                    value.oninput = function() {
+                        output.innerHTML = this.value;
+                    }
+                </script>
+                <br>
+                Membres:
+                {{range .Search.MaxMembers}}
+                    <input type="checkbox" name="{{.}}" value="{{.}}"> {{.}}
+                {{end}}
+                <br>
+                <label for="FirstAlbum">Premier Album </label>
+                <input type="range" id="FirstAlbum" name="FirstAlbum" class="valueAlbum" min="{{.Search.MinFirstAlbum}}" max="{{.Search.MaxFirstAlbum}}" value="{{.Search.MinFirstAlbum}}">
+                <span id="values"></span>  - {{.Search.MaxFirstAlbum}}
+                <script>
+                    var valueAlbum = document.getElementById("FirstAlbum")
+                    var outputAlbum = document.getElementById("values")
+                    outputAlbum.innerHTML = valueAlbum.value;
+                    valueAlbum.oninput = function() {
+                        outputAlbum.innerHTML = this.value;
+                    }
+                </script>
+                <br>
+                Locations:
+                <select name="locationFilter">
+                    <option value="">Choisis une location</option>
+                    {{range .Location}}
+                        <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                </select>
+                <br>
+                <input type="submit">
+            </form>
+        </div>
+
+        <script>
+            var showFiltersButton = document.getElementById("showFilters");
+            var filterBar = document.querySelector(".filterBar");
+
+            showFiltersButton.addEventListener("click", function() {
+                if (filterBar.style.display === "none") {
+                    filterBar.style.display = "block";
+                    showFiltersButton.textContent = " ";
+                } else {
+                    filterBar.style.display = "none";
+                    showFiltersButton.textContent = " + ";
+                }
+            });
+        </script>
+    </div>
+</section>
+    <section id="thirdSection">
+        <div class="conteneur" id="conteneur">
+            {{range .Artist}}
+                <div onclick="window.location.href = '/artist/{{.Id}}';" class="box">
+                    <div class="scroll">
+                        <h2 id="{{.Id}}" onmouseover="mOver('{{.Id}}')" onmouseout="mOut('{{.Id}}')">{{.Name}}</h2>
+                    </div>
+                    <div class="img"><img src={{.Image}}></div>
+                </div>
+            {{end}}
+        </div>
+        
+        {{if not .Artist}}
+            <div class="noResult">
+                <h1>Déso y'a walou</h1>
+                Tu recherches quoi chef ? parceque je vois rien du tout...
+            </div>
+        {{end}}
+    </section>
+</body>
+</html>

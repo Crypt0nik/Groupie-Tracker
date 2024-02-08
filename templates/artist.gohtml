@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script type="text/javascript" src="../assets/style.js"></script>
+    <link rel="icon" type="image/x-icon" href="../images/Empire_color.jpg">
+</head>
+
+<body>
+
+<nav>
+    <div class="nav">
+
+        <div class="logo">
+            <a id="logo" href="/">GROUPIE TRACKER</a>
+        </div>
+
+        <div class="searchBar">
+            <form method="get" action="/">
+                <input class="search" type="text" placeholder="Search..." id="data" name="data" list="data-list" autocomplete="off">
+                <datalist id="data-list">
+                    {{with .Search}}
+                        {{range .ArtistBandName}}
+                            <option value="{{.}} - Artist/Band"></option>
+                        {{end}}
+                        {{range .Members}}
+                            <option value="{{.}} - Member"></option>
+                        {{end}}
+                        {{range .Location}}
+                            <option value="{{.}} - Location"></option>
+                        {{end}}
+                        {{range .CreationDate}}
+                            <option value="{{.}} - Creation Date"></option>
+                        {{end}}
+                        {{range .FirstAlbumDate}}
+                            <option value="{{.}} - First Album Date"></option>
+                        {{end}}
+                    {{end}}
+                </datalist>
+            </form>
+        </div>
+
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="/aboutUs">About Us</a>
+        </div>
+    </div>
+</nav>
+
+<div class="upper">
+        <h1>{{.Artist.Name}}</h1>
+        <img src={{.Artist.Image}}><br>
+    </div>
+
+<div id="cont">
+        <div class="middlebox">
+            <h2>Creation Date</h2>
+            {{.Artist.CreationDate}}
+        </div>
+        <div class="separator"></div>
+        <div class="middlebox">
+            <h2>First Album Date</h2>
+            {{.Artist.FirstAlbum}}
+        </div>
+        <div class="separator"></div>
+        <div class="middlebox">
+            <h2>Members</h2>
+            {{with .Artist}}
+                {{range .Members}}
+                    {{.}}<br>
+                {{end}}
+            {{end}}
+        </div>
+        <div class="separator"></div>
+        <div class="middlebox">
+            <h2>Concert Dates and Locations</h2>
+            {{with .Artist}}
+                {{range $key, $value := .Relations}}
+                    {{$key}} : {{range $value}}
+                        {{.}}<br>{{end}}<br>
+                {{end}}
+            {{end}}
+        </div>
+    </div>
+
+<div id='map'></div>
+
+
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+<script>
+    mapboxClient = key()
+    map = map()
+    {{with .Artist}}
+    {{range .Locations}}
+    marker({{.}})
+    {{end}}{{end}}
+</script>
+
+
+</body>
+</html>

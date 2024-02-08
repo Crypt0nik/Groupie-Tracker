@@ -1,0 +1,186 @@
+@font-face {
+    font-family: 'Museo'; /* Nom que vous utiliserez pour référencer la police */
+    src: url('Téléchargements/museo-cufonfonts/Museo700-Regular.otf') format('truetype'); 
+}
+
+@font-face {
+    font-family: 'Sequell'; /* Nom que vous utiliserez pour référencer la police */
+    src: url('Téléchargements/sequel/sequel/Sequel Sans Light Head.otf') format('truetype'); 
+}
+
+body{
+    block-size: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;
+    font-family: 'Museo', sans-serif; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+  }
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav {
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    text-decoration: none;
+}
+
+
+
+.logo a{
+    position: relative;
+    z-index: -2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;  
+    font-size: 6em;
+    padding: 100px;
+    font-weight: 700; 
+    color: black;
+    text-align: center;
+}
+
+
+.cassette {
+    position: relative;
+    z-index: -1;
+    margin-top: -35%; 
+    left: 15%; 
+    height: 100%;
+    max-width: 670px;
+    max-height: 800px;
+    width: 100%; 
+    filter: drop-shadow(7px 7px 7px #666666);
+    -webkit-filter: drop-shadow(-15px 65px 3px rgba(0,0,0,0.5));
+}
+
+
+
+.logo2 {
+    position: relative;
+    z-index: -2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4.3em;
+    font-weight: 600;
+    flex-wrap: nowrap;  
+    color: black;
+    margin-top: -145px;
+
+}
+.logo3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sequell', sans-serif;
+    font-size: 4.3em;
+    font-weight: 600;
+    flex-wrap: nowrap;  
+    color: black;   
+}
+
+.logo4 {
+    position: relative;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4.3em;
+    font-weight: 600;
+    flex-wrap: nowrap;
+    transform: scale(1, 1.1);  
+    color: black;
+    margin-bottom: 200px;
+}
+
+.search {
+  display: grid;
+  width: 100%;
+  height: 10vh;
+  grid-template: 1fr/100%;
+  place-items: center;
+}
+
+.search form {
+    input[type=search] {
+      border: solid 3px #fff;
+      border-radius: 375px;
+      font-size: 2em;
+      height: 2em;
+      margin-left: 3vw;
+      outline: solid #F2CF66 0;
+      padding: 1em;
+      transition: all 3s ease-in-out;
+      width: 40vw;
+  
+      &:focus {
+        border: solid 0px #fff;
+        outline: solid #fff 2000px;
+      }
+    }
+  
+    @media (max-width: 1000px) {
+      input[type=search] {
+        width: 60vw;
+      }
+    }
+    }
+
+.filter button {
+    position: relative;
+    background-color: transparent;
+    
+    color: #666666;
+
+    transform: scale(1.5, 1.5);
+    z-index: 33;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -375px;
+    transition: all 3s ease-in-out;
+    border: none;
+     &:focus {
+        border: solid 0px #fff;
+        opacity: 0.5;
+      }
+  }
+  
+
+.filter form {
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 300px;
+}
+
+.conteneur {
+  display: flex;
+  flex-direction: row;
+  scroll-snap-align: start;
+  flex-wrap: wrap;
+  position: relative;
+  margin-top: 150vw;
+}
