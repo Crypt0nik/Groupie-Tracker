@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <title>Groupie Tracker</title>
     <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/filter.css">
+    <link rel="stylesheet" href="../assets/filter2.css">
+    <link rel="stylesheet" href="../assets/filter3.css">
     <script type="text/javascript" src="../assets/style.js"></script>
     <script type="text/javascript" src="../assets/script.js"></script>
     <link rel="icon" type="image/x-icon" href="../images/Empire_color.jpg">
@@ -23,6 +26,9 @@
         <div class="logo2">ARTHURCHESSÉ</div>
         <div class="logo3">アーサー・シェセ</div>
         <div class="logo4">TRACKER</div>
+        <div class="bas">
+            <a href="#thirdSection" class="smooth-scroll" style="text-decoration: none;" >⌵ Voir Recherche ⌵</a>
+            </div>
     </section>
     <section>
         <div class="search">
@@ -54,8 +60,12 @@
 
         <div class="filterBar" style="display: none;">
             <form method="get">
-                <label for="CreationDate">Date de création : </label>
-                <input type="range" id="CreationDate" name="CreationDate" class="value" min="{{.Search.MinCreationDate}}" max="{{.Search.MaxCreationDate}}" value="{{.Search.MinCreationDate}}">
+                <label class="crea" for="CreationDate">Création</label>
+                <div class="frame2">
+                    <div class="range2">
+                        <input type="range" id="CreationDate" name="CreationDate" class="value" min="{{.Search.MinCreationDate}}" max="{{.Search.MaxCreationDate}}" value="{{.Search.MinCreationDate}}">
+                    </div>
+                </div>
                 <span id="value"></span> - {{.Search.MaxCreationDate}}
                 <script>
                     var value = document.getElementById("CreationDate")
@@ -64,15 +74,14 @@
                     value.oninput = function() {
                         output.innerHTML = this.value;
                     }
-                </script>
-                <br>
-                Membres:
-                {{range .Search.MaxMembers}}
-                    <input type="checkbox" name="{{.}}" value="{{.}}"> {{.}}
-                {{end}}
-                <br>
-                <label for="FirstAlbum">Premier Album </label>
-                <input type="range" id="FirstAlbum" name="FirstAlbum" class="valueAlbum" min="{{.Search.MinFirstAlbum}}" max="{{.Search.MaxFirstAlbum}}" value="{{.Search.MinFirstAlbum}}">
+                </script>            
+                
+                <label class="fist" for="FirstAlbum">Premier Album </label>
+                <div class="frame">
+                    <div class="range">
+                        <input type="range" id="FirstAlbum" name="FirstAlbum" class="valueAlbum" min="{{.Search.MinFirstAlbum}}" max="{{.Search.MaxFirstAlbum}}" value="{{.Search.MinFirstAlbum}}">
+                    </div>
+                </div>
                 <span id="values"></span>  - {{.Search.MaxFirstAlbum}}
                 <script>
                     var valueAlbum = document.getElementById("FirstAlbum")
@@ -82,16 +91,26 @@
                         outputAlbum.innerHTML = this.value;
                     }
                 </script>
+                
+            <div class="loc">Location</div>
+                <label class="select" for="slct">
+                    <select id="slct" required="required" name="locationFilter">
+                        <option value="" disabled="disabled" selected="selected">  Choisis une location</option>
+                        {{range .Location}}
+                            <option value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                    <svg>
+                        <use xlink:href="#select-arrow-down"></use>
+                      </svg>
+                </label>
+                <svg class="sprites">
+                    <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                      <polyline points="1 1 5 5 9 1"></polyline>
+                    </symbol>
+                  </svg>
                 <br>
-                Locations:
-                <select name="locationFilter">
-                    <option value="">Choisis une location</option>
-                    {{range .Location}}
-                        <option value="{{.}}">{{.}}</option>
-                    {{end}}
-                </select>
-                <br>
-                <input type="submit">
+                <input class="inp" type="submit">
             </form>
         </div>
 
@@ -105,13 +124,13 @@
                     showFiltersButton.textContent = " ";
                 } else {
                     filterBar.style.display = "none";
-                    showFiltersButton.textContent = " + ";
+                    showFiltersButton.textContent = "Afficher";
                 }
             });
         </script>
     </div>
 </section>
-    <section id="thirdSection">
+    <section class="thirdsection" id="thirdSection">
         <div class="conteneur" id="conteneur">
             {{range .Artist}}
                 <div onclick="window.location.href = '/artist/{{.Id}}';" class="box">
