@@ -117,8 +117,8 @@ body{
   filter: brightness(0.6);
   position: absolute;
   z-index: 6;
-  margin-top: -520px;
-  margin-left: 265px;
+  margin-top: -515px;
+  margin-left: 270px;
   rotate: 6deg;
   scale: 1.2;
   mix-blend-mode: screen;
@@ -181,9 +181,9 @@ body{
     text-align:start;
     font-weight: 400;
     font-size: 3em;
-    padding: 30px;
+    padding: 10px;
     margin-top: 10%;
-    margin-left: 13%;
+    margin-left: 78px;
 }
 
 .creationARTIST {
