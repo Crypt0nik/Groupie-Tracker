@@ -10,6 +10,7 @@ body {
   }
 
   .select {
+    border-radius: 30px;
     margin-top: 60%;
     margin-left: 14%;
     position: relative;
@@ -33,7 +34,7 @@ body {
     padding: 7px 40px 7px 12px;
     width: 100%;
     border: 1px solid #e8eaed;
-    border-radius: 5px;
+    border-radius: 25px;
     background: #fff;
     box-shadow: 0 1px 3px -2px #9098a9;
     cursor: pointer;

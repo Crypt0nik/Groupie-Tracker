@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -17,22 +16,83 @@
 <body>
 <nav>
     <section>
+
+  <div class="hidden-div" id="hiddenDiv">
+            <img src="../images/IMG_6957.png" alt="" class="phototibo">
+            <div class="thibaud">THIBAUD le Plus beau</div>
+        </div>
+
+    <script>
+        function toggleVisibility() {
+        var hiddenDiv = document.getElementById("hiddenDiv");
+
+        if (hiddenDiv.style.display === "none" || hiddenDiv.style.display === "") {
+            hiddenDiv.style.display = "block";
+
+            
+            window.scrollTo({
+            top: hiddenDiv.offsetTop,
+            behavior: "smooth"
+            });
+
+            
+            setTimeout(function() {
+            hiddenDiv.style.display = "none";
+            }, 4000);
+        }
+        }
+
+    </script>
+
     <div class="nav">
 
         <div class="logo">
             <a id="logo" href="/" style="text-decoration:none">groupietrack®</a>
         </div>
-        <img src="../images/cassette 3D.png" alt="" class="cassette">
+        <a href="#thirdSection">
+            <img src="../images/cassette 3DD.png" alt="" class="cassette">
+        </a>
         <div class="logo2">ARTHURCHESSÉ</div>
         <div class="logo3">アーサー・シェセ</div>
-        <div class="logo4">TRACKER</div>
+        <div class="logo4" style="text-decoraion:none">TRACKER</div>
         <div class="bas">
-            <a href="#thirdSection" class="smooth-scroll" style="text-decoration: none;" >⌵ Voir Recherche ⌵</a>
-            </div>
+            <a href="#thirdSection" id="maDiv" class="smooth-scroll" style="color: transparent;" >⌵ Voir Recherche ⌵</a>
+        </div>
+
+
+<script>
+    function afficherApresDelai() {
+        var maDiv = document.getElementById("maDiv");
+
+        setTimeout(function () {
+            maDiv.style.display = "block";
+            clignoterDiv(); 
+        }, 1000);
+    }
+
+    function clignoterDiv() {
+        var maDiv = document.getElementById("maDiv");
+        var visible = true;
+
+        setInterval(function () {
+            if (visible) {
+                maDiv.style.color = "transparent";
+            } else {
+                maDiv.style.color = "red";
+            }
+
+            visible = !visible; 
+        }, 230);
+    }
+
+    
+    window.onload = afficherApresDelai;
+</script>
+
     </section>
     <section>
         <div class="search">
-            <form method="get" action="/">
+            <form  action="#thirdsection">
                 <input type="search" placeholder="Bienvenue sur GroupieTracker®" id="data" name="data" list="data-list" autocomplete="on">
                 <datalist id="data-list">
                                 {{with .Search}}
@@ -49,98 +109,123 @@
                  </datalist>
              </form>
         </div> 
-    
-        <!-- <div class="menu">
-            <a href="/">Accueil</a>
-            <a href="/aboutUs">A Propos</a>
-        </div> -->
+
 </nav>
-    <div class="filter">
-        <button id="showFilters">Afficher</button>
+        <div class="filter">
+            <button id="showLocationFilter" >Afficher </button>
+                    <div class="filterBar fade" style="display:none ;">
+                        <form method="get">
+                            <label class="crea" for="CreationDate">Création</label>
+                            <div class="frame2">
+                                <div class="range2">
+                                    <input type="range" id="CreationDate" name="CreationDate" class="value" min="{{.Search.MinCreationDate}}" max="{{.Search.MaxCreationDate}}" value="{{.Search.MinCreationDate}}">
+                                </div>
+                            </div>
+                            <span id="value"></span> - {{.Search.MaxCreationDate}}
+                            <script>
+                                var value = document.getElementById("CreationDate");
+                                var output = document.getElementById("value");
 
-        <div class="filterBar" style="display: none;">
-            <form method="get">
-                <label class="crea" for="CreationDate">Création</label>
-                <div class="frame2">
-                    <div class="range2">
-                        <input type="range" id="CreationDate" name="CreationDate" class="value" min="{{.Search.MinCreationDate}}" max="{{.Search.MaxCreationDate}}" value="{{.Search.MinCreationDate}}">
+                                output.innerHTML = value.value;
+
+                                value.addEventListener("input", function() {
+                                    output.innerHTML = this.value;
+                                });
+
+                                function valider() {
+                                    
+                                    var valeurSelectionnee = value.value;
+                                   
+                                    alert("Filtrer avec la valeur : " + valeurSelectionnee);
+                                }
+                            </script>
+
+                            <label class="fist" for="FirstAlbum">Première Album </label>
+                            <div class="frame">
+                                <div class="range">
+                                    <input type="range" id="FirstAlbum" name="FirstAlbum" class="valueAlbum" min="{{.Search.MinFirstAlbum}}" max="{{.Search.MaxFirstAlbum}}" value="{{.Search.MinFirstAlbum}}">
+                                </div>
+                            </div>
+                            <span id="values"></span>  - {{.Search.MaxFirstAlbum}}
+                            <script>
+                                var valueAlbum = document.getElementById("FirstAlbum")
+                                var outputAlbum = document.getElementById("values")
+                                outputAlbum.innerHTML = valueAlbum.value;
+                                valueAlbum.oninput = function() {
+                                    outputAlbum.innerHTML = this.value;
+                                }
+                            </script>
+
+                    
+                            <div class="loc">Location</div>
+                            <label class="select" for="slct">
+                                <select id="slct" name="locationFilter">
+                                    <option value="">Concert Location</option>
+                                    {{range .Location}}
+                                    <option value="{{.}}">{{.}}</option>
+                                    {{end}}
+                                </select>
+                                <svg>
+                                    <use xlink:href="#select-arrow-down"></use>
+                                </svg>
+                            </label>
+                            <svg class="sprites">
+                                <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                                    <polyline points="1 1 5 5 9 1"></polyline>
+                                </symbol>
+                            </svg>
+
+                                 <div class="checkos">
+                                {{range .Search.MaxMembers}}
+                                    <input type="checkbox" name="{{.}}" value="{{.}}"> {{.}}
+                                {{end}}
+                            </div>
+                
+
+                            <input class="inp" type="submit">
+                        </form>
                     </div>
                 </div>
-                <span id="value"></span> - {{.Search.MaxCreationDate}}
-                <script>
-                    var value = document.getElementById("CreationDate")
-                    var output = document.getElementById("value")
-                    output.innerHTML = value.value;
-                    value.oninput = function() {
-                        output.innerHTML = this.value;
-                    }
-                </script>            
-                
-                <label class="fist" for="FirstAlbum">Premier Album </label>
-                <div class="frame">
-                    <div class="range">
-                        <input type="range" id="FirstAlbum" name="FirstAlbum" class="valueAlbum" min="{{.Search.MinFirstAlbum}}" max="{{.Search.MaxFirstAlbum}}" value="{{.Search.MinFirstAlbum}}">
-                    </div>
-                </div>
-                <span id="values"></span>  - {{.Search.MaxFirstAlbum}}
-                <script>
-                    var valueAlbum = document.getElementById("FirstAlbum")
-                    var outputAlbum = document.getElementById("values")
-                    outputAlbum.innerHTML = valueAlbum.value;
-                    valueAlbum.oninput = function() {
-                        outputAlbum.innerHTML = this.value;
-                    }
-                </script>
-                
-            <div class="loc">Location</div>
-                <label class="select" for="slct">
-                    <select id="slct" required="required" name="locationFilter">
-                        <option value="" disabled="disabled" selected="selected">  Choisis une location</option>
-                        {{range .Location}}
-                            <option value="{{.}}">{{.}}</option>
-                        {{end}}
-                    </select>
-                    <svg>
-                        <use xlink:href="#select-arrow-down"></use>
-                      </svg>
-                </label>
-                <svg class="sprites">
-                    <symbol id="select-arrow-down" viewbox="0 0 10 6">
-                      <polyline points="1 1 5 5 9 1"></polyline>
-                    </symbol>
-                  </svg>
-                <br>
-                <input class="inp" type="submit">
-            </form>
-        </div>
 
-        <script>
-            var showFiltersButton = document.getElementById("showFilters");
-            var filterBar = document.querySelector(".filterBar");
+            <script>
+            var showLocationFilterButton = document.getElementById("showLocationFilter");
+            var locationFilterBar = document.querySelector(".filterBar");
 
-            showFiltersButton.addEventListener("click", function() {
-                if (filterBar.style.display === "none") {
-                    filterBar.style.display = "block";
-                    showFiltersButton.textContent = " ";
-                } else {
-                    filterBar.style.display = "none";
-                    showFiltersButton.textContent = "Afficher";
-                }
+            showLocationFilterButton.addEventListener("click", function () {
+
+                locationFilterBar.style.display = (locationFilterBar.style.display === "none") ? "block" : "none";
+
+
+                showLocationFilterButton.textContent = (locationFilterBar.style.display === "none") ? "Afficher Filtre de Location" : " ";
             });
         </script>
-    </div>
+
+        </div>
 </section>
     <section class="thirdsection" id="thirdSection">
+        
+
         <div class="conteneur" id="conteneur">
             {{range .Artist}}
-                <div onclick="window.location.href = '/artist/{{.Id}}';" class="box">
+                <div onclick="window.location.href = '/artist/{{.Id}}';" class="box ">
                     <div class="scroll">
-                        <h2 id="{{.Id}}" onmouseover="mOver('{{.Id}}')" onmouseout="mOut('{{.Id}}')">{{.Name}}</h2>
                     </div>
-                    <div class="img"><img src={{.Image}}></div>
+                        <div class="imgigm" >
+                            <div class="img"><img src={{.Image}}></div>
+                            <div class="imgdisk"><img src={{.Image}}></div>  
+                        </div>
                 </div>
             {{end}}
         </div>
+        
+            <div class="trigger-div" >
+                <img src="../images/Sans titre-2.png" alt="" class="front">
+            </div>
+            
+            <div class="thubaud">
+                <img src="../images/lecteurcd-Front.png" alt="" class="back">
+            </div>
+        
         
         {{if not .Artist}}
             <div class="noResult">
@@ -148,6 +233,6 @@
                 Tu recherches quoi chef ? parceque je vois rien du tout...
             </div>
         {{end}}
-    </section>
+</section>
 </body>
 </html>

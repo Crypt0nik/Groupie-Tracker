@@ -1,12 +1,3 @@
-@font-face {
-    font-family: 'Museo'; /* Nom que vous utiliserez pour référencer la police */
-    src: url('Téléchargements/museo-cufonfonts/Museo700-Regular.otf') format('truetype'); 
-}
-
-@font-face {
-    font-family: 'Sequell'; /* Nom que vous utiliserez pour référencer la police */
-    src: url('Téléchargements/sequel/sequel/Sequel Sans Light Head.otf') format('truetype'); 
-}
 
 body{
     block-size: 100%;
@@ -42,7 +33,19 @@ section {
 }
 
 .smooth-scroll {
-  transition: 0.5s ease-in-out; /* Ajoute une transition de 0,5 seconde avec un effet d'entrée et de sortie en douceur */
+  scroll-behavior: smooth;
+  scroll-snap-align: start;
+}
+
+.sidedisk {
+  position: absolute;
+}
+
+.d1 {
+  position: absolute;
+  background-color: red;
+  margin-top: -300%;
+  margin-left: 150%;
 }
 
 .bas{
@@ -50,7 +53,13 @@ section {
   justify-content: center;
   text-align: center;
   margin-top: -15%;
+}
 
+.bas a {
+  position: relative;
+  display: flex;
+  color: red;
+  text-decoration: none;
 }
 
 .logo a{
@@ -70,20 +79,23 @@ section {
 
 .cassette {
     position: relative;
-    z-index: -1;
+    z-index: 99;
     margin-top: -35%; 
     left: 15%; 
     height: 100%;
     max-width: 670px;
     max-height: 800px;
+    transition: all 3s ease;
     width: 100%; 
     filter: drop-shadow(7px 7px 7px #666666);
     -webkit-filter: drop-shadow(-15px 65px 3px rgba(0,0,0,0.5));
+    cursor:s-resize	
 }
 
 
 
 .logo2 {
+  
     position: relative;
     z-index: -2;
     display: flex;
@@ -103,9 +115,10 @@ section {
     justify-content: center;
     font-family: 'Sequell', sans-serif;
     font-size: 4.3em;
-    font-weight: 600;
+    font-weight: 500;
     flex-wrap: nowrap;  
     color: black;   
+    cursor: default;
 }
 
 .logo4 {
@@ -167,8 +180,8 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -100%;
-    width: 100%;
+    margin-top: -5vw;
+    width: 40vw;
     transition: all 3s ease-in-out;
     border: none;
   }
@@ -176,7 +189,7 @@ section {
 
 .filter form {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 19%;
+    margin-top: -55vw;
     margin-left: 35%;
     display: flex;
     flex-wrap: wrap;
@@ -193,14 +206,18 @@ section {
   color: grey;
   font-size: 1.3em;
   text-align: center;
+  margin-top: 20%;
   width: 100%;
+  
 }
 
 .fist {
   color: grey;
+  font-size: 1.3em;
   text-align: center;
-  width: 100%;
   margin-top: 3%;
+  width: 100%;
+
 }
 
 .loc {
@@ -210,28 +227,164 @@ section {
   width: 100%;
 }
 
-.conteneur {
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  overflow-x: auto; 
-  white-space: nowrap;
-  position: relative;
-  margin-top: 8vw;
-}
 
 .conteneur {
-  outline: auto 15px #666666;
-  max-width: 900px;
+  display: flex;
+  scale: 1.9;
+  flex-direction: row;
+  overflow-x: auto; 
+  overflow-y: hidden; 
+  white-space: nowrap;
+  position: absolute;
+  z-index: 1;
+  margin-right: -200px;
+  margin-left: 400px;
+  margin-top: 7%;
+  max-width: 1000px;
     padding: 10px;
-    margin-left: 1%;
     align-items: center;
-    transform: scale(1.5);
+
+}
+
+@keyframes scroll {
+  from {
+    transform:  translateX(100%);
+  }
+  to {
+    transform:  translateX(-100%);
+  }
 }
 
 .scroll {
-  width: 320px;
+  width: 390px;
   margin-right: 20px;
   margin-top: 1vw;
 
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; 
+  position: relative; 
+}
+
+.img img {
+  /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
+  /* box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px; */
+  box-shadow: 
+                rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+
+}
+
+h2 {
+  text-align: center;
+  font-size: 2em;
+  
+  opacity: 1;
+}
+
+.conteneur {
+    perspective: 1000px; 
+}
+
+.conteneur {
+    transform: perspective(1000px) rotateY(-20deg); 
+    transform-origin: top right; 
+}
+.imgdisk {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 215px;
+  height: 215px;
+  border-radius: 300px;
+  z-index: 1;
+  position: relative;
+  bottom: 230px;
+  left: 200px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+@keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+.imgdisk img {
+  border-radius: 300px;
+  scale: 0.9;
+  transform: rotate(40deg);
+  animation: rotate 15s linear infinite;
+  transform-origin: center center;
+  transition: transform 0.5s ease;
+}
+
+.noResult {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 500px;
+  transform: scale(1.5);
+  margin-right: 62vw;
+  text-align: center;
+}
+
+.noResult h1 {
+  transform: scale(1.5);
+}
+
+.trigger-div {
+  position: absolute;
+  z-index: 2;
+  margin-right: 60%;
+  margin-bottom: 5%;
+  transform: scale(0.45);
+
+}
+
+.thubaud{
+  display: absolute;
+  z-index: -1;
+  margin-left: -90.2%;
+  margin-bottom: 7.5%;
+  transform: scale(0.45);
+  filter: drop-shadow(-70px 100px 100px #606060);
+}
+
+.hidden-div {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  height: 550px;
+  background-color: lightblue;
+  transform: scale(1);
+  font-size: 4em;
+  outline: blue 30px solid;
+  box-shadow: #043bff 10px 10px 500px;
+  border-radius: 200px;
+  align-items: center;
+  text-align: center;
+}
+
+.phototibo {
+  width: 300px;
+  height: 300px;
+  rotate: 180deg;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+.checkos{
+  position: absolute;
+  z-index: 1;
+  margin-bottom: -1000px;
+  margin-left: 14px;
 }

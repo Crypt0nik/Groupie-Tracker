@@ -72,7 +72,7 @@
 		height: 9px;
 
 		transition: all 3s;
-		/* Hides the slider so custom styles can be added */
+		
 		background: transparent;
 		border-color: transparent;
 		color: transparent;

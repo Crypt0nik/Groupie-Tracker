@@ -13,14 +13,14 @@ import (
 	"time"
 )
 
-// Calculation Before Server Start
+//	Variables
 
 var artist, err = getData()
 var search = searchBar()
 var locationFilter = filterLocation()
 var copyArtist = artist
 
-// Refreshing Api each 5 minutes
+// Refresh de l'API toutes les cinq minutes
 
 func RefreshingApi() {
 	for {
@@ -41,7 +41,7 @@ func redoWhenError() {
 	copyArtist = artist
 }
 
-// Structure to get API
+// Structure pour API
 
 type group struct {
 	Artists   string
@@ -90,7 +90,7 @@ type artistFull struct {
 	Relations    map[string][]string
 }
 
-// Search Bar Datalist Structure
+// Structure database pour searchbar
 
 type SB struct {
 	ArtistBandName  []string
@@ -105,18 +105,18 @@ type SB struct {
 	MaxMembers      []int
 }
 
-// Function to get and parse data from api
+// Analyser données API
 
 func readUrl(url string) ([]byte, bool) {
 	res, err1 := http.Get(url)
 	if err1 != nil {
-		fmt.Println("Error while reading the url")
+		fmt.Println("Erreur URL")
 		return nil, false
 	}
 	defer res.Body.Close()
 	body, err1 := ioutil.ReadAll(res.Body)
 	if err1 != nil {
-		fmt.Println("Error while reading the url")
+		fmt.Println("Erreur URL")
 		return nil, false
 	}
 	return body, true
@@ -130,7 +130,7 @@ func getLink(url string) (group, bool) {
 	links := group{}
 	jsonUrl := json.Unmarshal(body, &links)
 	if jsonUrl != nil {
-		fmt.Println("Can't Unmarshal the api")
+		fmt.Println("Marche pas")
 		return group{}, false
 	}
 	return links, true
@@ -144,7 +144,7 @@ func getArtists(url string) ([]artists, bool) {
 	var art []artists
 	jsonUrl := json.Unmarshal(body, &art)
 	if jsonUrl != nil {
-		fmt.Println("Can't Unmarshal the api")
+		fmt.Println("Marche pas")
 		return nil, false
 	}
 	return art, true
@@ -158,7 +158,7 @@ func getRelation(url string) (relation, bool) {
 	relations := relation{}
 	jsonUrl := json.Unmarshal(body, &relations)
 	if jsonUrl != nil {
-		fmt.Println("Can't Unmarshal the api")
+		fmt.Println("Marche pas")
 		return relation{}, false
 	}
 	return relations, true
@@ -172,7 +172,7 @@ func getLocations(url string) (location, bool) {
 	locations := location{}
 	jsonUrl := json.Unmarshal(body, &locations)
 	if jsonUrl != nil {
-		fmt.Println("Can't Unmarshal the api")
+		fmt.Println("Marche pas")
 		return location{}, false
 	}
 	return locations, true
@@ -186,7 +186,7 @@ func getDates(url string) (dates, bool) {
 	date := dates{}
 	jsonUrl := json.Unmarshal(body, &date)
 	if jsonUrl != nil {
-		fmt.Println("Can't Unmarshal the api")
+		fmt.Println("Marche pas")
 		return dates{}, false
 	}
 	return date, true
@@ -224,7 +224,7 @@ func getData() ([]artistFull, bool) {
 	return listArtistComplete, true
 }
 
-// Filter Functions
+// Fonction pour les filtres
 
 func filters(w http.ResponseWriter, r *http.Request) {
 	copyArtist = nil
@@ -250,6 +250,19 @@ func filters(w http.ResponseWriter, r *http.Request) {
 		member := strconv.Itoa(len(artist[i].Members))
 		firstAlbum := artist[i].FirstAlbum[6:]
 		checkboxMember := r.FormValue(member)
+
+		//debug
+		fmt.Printf("creaDate: %v\n", creaDate)
+		fmt.Printf("CreationDate from artist: %v\n", artist[i].CreationDate)
+		fmt.Printf("FirstAlbum: %v\n", firstAlbum)
+
+		//debug pour condtions
+		fmt.Printf("isFilterMember: %v\n", isFilterMember)
+		fmt.Printf("checkboxMember: %v\n", checkboxMember)
+		fmt.Printf("isLocation: %v\n", isLocation)
+		fmt.Printf("r.FormValue(\"FirstAlbum\"): %v\n", r.FormValue("FirstAlbum"))
+
+
 		if artist[i].CreationDate >= creaDate && firstAlbum >= r.FormValue("FirstAlbum") {
 			if isFilterMember == true && checkboxMember != "" || !isFilterMember {
 				if isLocation || r.FormValue("locationFilter") == "" {
@@ -276,7 +289,7 @@ func filterLocation() []string {
 	return locationsFinal
 }
 
-// Search Bar Functions
+// Fonction searchbar
 
 func searchBar() SB {
 	var sortArtistData SB
@@ -341,15 +354,15 @@ func searchBar() SB {
 func searchBarCalculation(w http.ResponseWriter, r *http.Request) {
 	key := strings.ToLower(r.FormValue("data"))
 	copyArtist = nil
-	if strings.Contains(key, "artist/band") {
-		key = strings.Join(strings.Split(key, " - artist/band"), "")
+	if strings.Contains(key, "artist/groupe") {
+		key = strings.Join(strings.Split(key, " - artist/groupe"), "")
 		for i := 0; i < len(artist); i++ {
 			if key == strings.ToLower(artist[i].Name) {
 				copyArtist = append(copyArtist, artist[i])
 			}
 		}
-	} else if strings.Contains(key, "member") {
-		key = strings.Join(strings.Split(key, " - member"), "")
+	} else if strings.Contains(key, "membre") {
+		key = strings.Join(strings.Split(key, " - membre"), "")
 		for i := 0; i < len(artist); i++ {
 			for j := range artist[i].Members {
 				if key == strings.ToLower(artist[i].Members[j]) {
@@ -366,15 +379,15 @@ func searchBarCalculation(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
-	} else if strings.Contains(key, "creation date") {
-		key = strings.Join(strings.Split(key, " - creation date"), "")
+	} else if strings.Contains(key, "date de création") {
+		key = strings.Join(strings.Split(key, " - date de création"), "")
 		for i := 0; i < len(artist); i++ {
 			if key == strconv.Itoa(artist[i].CreationDate) {
 				copyArtist = append(copyArtist, artist[i])
 			}
 		}
-	} else if strings.Contains(key, "first album date") {
-		key = strings.Join(strings.Split(key, " - first album date"), "")
+	} else if strings.Contains(key, "date du premier album") {
+		key = strings.Join(strings.Split(key, " - date du premier album"), "")
 		for i := 0; i < len(artist); i++ {
 			if key == artist[i].FirstAlbum {
 				copyArtist = append(copyArtist, artist[i])
@@ -427,7 +440,7 @@ func AlreadyInSlice(sliceString []string, wordCompared string, intCompared int, 
 	return false
 }
 
-// Page Functions
+// Fonction pour les pages
 
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -474,22 +487,14 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func aboutUsPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("../templates/aboutus.gohtml"))
-	_ = tmpl.Execute(w, struct {
-		Search SB
-	}{Search: search})
-}
-
-// Requests Handler
+// Gestion requêtes
 
 func handleRequests() {
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/artist/", artistPage)
-	http.HandleFunc("/aboutUs", aboutUsPage)
 }
 
-// Function Main
+// Fonction main server
 
 func main() {
 	go RefreshingApi()
