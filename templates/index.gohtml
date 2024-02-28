@@ -66,13 +66,13 @@
                 <datalist id="data-list">
                                 {{with .Search}}
                                     {{range .ArtistBandName}}
-                                        <option value="{{.}} - Artist/Band"></option>
+                                        <option value="{{.}}"> - Artist/Band</option>
                                     {{end}}
                                     {{range .Members}}
-                                        <option value="{{.}} - Member"></option>
+                                        <option value="{{.}}"> - Member</option>
                                     {{end}}
                                     {{range .CreationDate}}
-                                        <option value="{{.}} - Creation Date"></option>
+                                        <option value="{{.}}"> - Creation Date</option>
                                     {{end}}
                                 {{end}}
                  </datalist>
@@ -148,8 +148,8 @@
                                 {{range .Search.MaxMembers}}
                                     <input type="checkbox" name="{{.}}" value="{{.}}"> {{.}}
                                 {{end}}
+
                             </div>
-                            
                             <input class="inp" type="submit">
                         </form>
                     </div>
@@ -193,14 +193,6 @@
             <div class="thubaud">
                 <img src="../images/lecteurcd-Front.png" alt="" class="back">
             </div>
-        
-        
-        {{if not .Artist}}
-            <div class="noResult">
-                <h1>Déso y'a walou</h1>
-                Tu recherches quoi chef ? parceque je vois rien du tout...
-            </div>
-        {{end}}
 </section>
 </body>
 </html>

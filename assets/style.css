@@ -313,18 +313,10 @@ h2 {
 }
 
 .noResult {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  width: 500px;
-  transform: scale(1.5);
-  margin-right: 62vw;
-  text-align: center;
-}
-
-.noResult h1 {
-  transform: scale(1.5);
+  display: none;
+  background-color: red;
+  color: black;
+  position: absolute;
 }
 
 .trigger-div {

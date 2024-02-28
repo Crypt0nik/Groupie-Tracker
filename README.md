@@ -1,4 +1,3 @@
-
 **GROUPIE TRACK® <br>**
 **ARTHUR CHESSÉ <br>**
 アーサー・シェセ <br>

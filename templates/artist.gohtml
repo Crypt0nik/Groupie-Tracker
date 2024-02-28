@@ -127,7 +127,7 @@
         <div class="memberARTIST">
             {{with .Artist}}
                 {{range $index, $member := .Members}}
-                    {{if le $index 5}} <!-- Limitez à 6 membres pour rentrer dans mon templates -->
+                    {{if le $index 6}}
                         {{.}}<br>
                     {{end}}
                 {{end}}
@@ -140,13 +140,13 @@
                 <datalist id="data-list">
                                 {{with .Search}}
                                     {{range .ArtistBandName}}
-                                        <option value="{{.}} - Artist/Band"></option>
+                                        <option value="{{.}}"> - Artists/Band</option>
                                     {{end}}
                                     {{range .Members}}
-                                        <option value="{{.}} - Member"></option>
+                                        <option value="{{.}}"> - Member</option>
                                     {{end}}
                                     {{range .CreationDate}}
-                                        <option value="{{.}} - Creation Date"></option>
+                                        <option value="{{.}}"> - Creation Date</option>
                                     {{end}}
                                 {{end}}
                  </datalist>
