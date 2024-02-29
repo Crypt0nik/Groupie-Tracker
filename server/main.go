@@ -1,3 +1,5 @@
+// Groupie-Tracker V1.1 Arthur Chessé - 2024
+
 package main
 
 import (
